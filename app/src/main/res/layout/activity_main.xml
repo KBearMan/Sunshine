@@ -4,15 +4,101 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ff1ca8fa"
     tools:context=".MainActivity">
 
-    <TextView
+    <android.support.constraint.Guideline
+        android:id="@+id/main_activity_40_horizontal_guide"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.4" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/main_activity_day_list"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/main_activity_40_horizontal_guide" />
+
+    <ImageView
+        android:id="@+id/main_activity_icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/main_activity_weather_description"
+        app:layout_constraintEnd_toStartOf="@+id/main_activity_94_vertical_guide"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/art_clear" />
+
+    <TextView
+        android:id="@+id/main_activity_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Today,DATE"
+        android:textAllCaps="false"
+        android:textColor="@color/mainScreenHeaderText"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/main_activity_current_temp"
+        app:layout_constraintStart_toStartOf="@+id/main_activity_16_vertical_guide"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/main_activity_current_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="°"
+        android:textAllCaps="false"
+        android:textColor="@color/mainScreenHeaderText"
+        android:textSize="72sp"
+        app:layout_constraintBottom_toTopOf="@+id/main_activity_low_temp"
+        app:layout_constraintStart_toStartOf="@+id/main_activity_date"
+        app:layout_constraintTop_toBottomOf="@+id/main_activity_date" />
+
+    <TextView
+        android:id="@+id/main_activity_low_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="°"
+        android:textAllCaps="false"
+        android:textColor="@color/mainScreenHeaderText"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/main_activity_40_horizontal_guide"
+        app:layout_constraintStart_toStartOf="@+id/main_activity_current_temp"
+        app:layout_constraintTop_toBottomOf="@+id/main_activity_current_temp" />
+
+    <TextView
+        android:id="@+id/main_activity_weather_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Unknown"
+        android:textAllCaps="false"
+        android:textColor="@color/mainScreenHeaderText"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/main_activity_40_horizontal_guide"
+        app:layout_constraintEnd_toEndOf="@+id/main_activity_icon"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/main_activity_icon"
+        app:layout_constraintTop_toBottomOf="@+id/main_activity_icon" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/main_activity_16_vertical_guide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.166666" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/main_activity_94_vertical_guide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.944444"  />
 </android.support.constraint.ConstraintLayout>
