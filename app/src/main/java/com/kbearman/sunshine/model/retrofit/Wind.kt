@@ -3,13 +3,13 @@ package com.kbearman.sunshine.model.retrofit
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class Coord {
+class Wind {
 
-    @SerializedName("lat")
+    @SerializedName("speed")
     @Expose
-    var lat: Double? = null
-    @SerializedName("lon")
+    var speed: Double? = null
+    @SerializedName("deg")
     @Expose
-    var lon: Double? = null
+    var deg: Double? = null
 
 }

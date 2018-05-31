@@ -3,13 +3,10 @@ package com.kbearman.sunshine.model.retrofit
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class Coord {
+class Clouds {
 
-    @SerializedName("lat")
+    @SerializedName("all")
     @Expose
-    var lat: Double? = null
-    @SerializedName("lon")
-    @Expose
-    var lon: Double? = null
+    var all: Long? = null
 
 }

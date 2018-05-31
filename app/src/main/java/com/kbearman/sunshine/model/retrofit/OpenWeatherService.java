@@ -2,6 +2,7 @@ package com.kbearman.sunshine.model.retrofit;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 /**
  * Created by Shiva on 5/30/2018.
@@ -9,5 +10,6 @@ import retrofit2.http.GET;
 
 public interface OpenWeatherService
 {
-
+    @GET("forecast&mode=json&cnt=5&units=imperial&APPID=c823a132edfb2ceb3700abee63ab4223")
+    Observable<List<WeatherResponse>> getCityForecast(@Query("q") String city);
 }

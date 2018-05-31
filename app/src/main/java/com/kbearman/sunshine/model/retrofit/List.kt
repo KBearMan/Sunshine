@@ -8,26 +8,26 @@ class List<T> {
     @SerializedName("dt")
     @Expose
     var dt: Long? = null
-    @SerializedName("temp")
+    @SerializedName("main")
     @Expose
-    var temp: Temp? = null
-    @SerializedName("pressure")
-    @Expose
-    var pressure: Double? = null
-    @SerializedName("humidity")
-    @Expose
-    var humidity: Long? = null
+    var main: Main? = null
     @SerializedName("weather")
     @Expose
     var weather: List<Weather>? = null
-    @SerializedName("speed")
-    @Expose
-    var speed: Double? = null
-    @SerializedName("deg")
-    @Expose
-    var deg: Long? = null
     @SerializedName("clouds")
     @Expose
-    var clouds: Long? = null
+    var clouds: Clouds? = null
+    @SerializedName("wind")
+    @Expose
+    var wind: Wind? = null
+    @SerializedName("rain")
+    @Expose
+    var rain: Rain? = null
+    @SerializedName("sys")
+    @Expose
+    var sys: Sys? = null
+    @SerializedName("dt_txt")
+    @Expose
+    var dtTxt: String? = null
 
 }
