@@ -1,4 +1,4 @@
-package com.kbearman.sunshine.view
+package com.kbearman.sunshine.Forecast
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -10,6 +10,8 @@ class ForecastActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
+
+
 
 
 }
