@@ -8,7 +8,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.kbearman.sunshine.R
 import com.kbearman.sunshine.model.DayWeather
-import com.kbearman.sunshine.model.retrofit.WeatherResponse
 import kotlinx.android.synthetic.main.recycler_view_day_entry.view.*
 
 /**
@@ -24,8 +23,6 @@ class ForecastRecyclerViewAdapter(private val myDataSet: ArrayList<DayWeather>, 
         holder.descriptionTextView.setText(holder.dayWeather!!.getDescription())
         holder.highTextView.setText(holder.dayWeather!!.getHighTemp().toString()+"°")
         holder.lowTextView.setText(holder.dayWeather!!.getLowTemp().toString()+"°")
-               // holder.currentAlbum = myDataSet[position]
-       // holder.titleTextView.setText(myDataSet[position].title)
     }
 
     override fun getItemCount(): Int

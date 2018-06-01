@@ -10,7 +10,4 @@ interface DayWeather {
     fun getLowTemp(): Integer
     fun getHighTemp(): Integer
     fun getMetrics(): Map<String, String>
-
-
-
 }
