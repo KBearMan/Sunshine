@@ -10,6 +10,7 @@ import kotlin.collections.HashMap
 class SimpleDayWeather : DayWeather
 {
     private lateinit var day: String
+    private lateinit var city:String
     private lateinit var date: Date
     private lateinit var description: String
     private lateinit var highTemp: Integer
@@ -18,7 +19,13 @@ class SimpleDayWeather : DayWeather
     private lateinit var pressure: String
     private lateinit var wind: String
 
+    override fun getCity(): String {
+        return city
+    }
 
+    override fun getDate(): Date {
+        return date
+    }
 
     override fun getDay(): String {
         return day

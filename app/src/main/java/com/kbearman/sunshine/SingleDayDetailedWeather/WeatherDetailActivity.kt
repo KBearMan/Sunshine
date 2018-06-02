@@ -1,4 +1,4 @@
-package com.kbearman.sunshine.view
+package com.kbearman.sunshine.SingleDayDetailedWeather
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
