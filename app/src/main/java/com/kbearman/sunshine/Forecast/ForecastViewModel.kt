@@ -20,7 +20,7 @@ class ForecastViewModel : ViewModel()
     init {
         Log.d(TAG,"ForecastViewModel initialized")
         weatherRepository.getForecastObservable().subscribeBy(
-                onNext = { day -> forecastList.add(day)},
+                onNext = { days -> forecastList.addAll(days)},
                 onError =  { it.printStackTrace() },
                 onComplete = { println("Done!") }
         )

@@ -1,7 +1,6 @@
 package com.kbearman.sunshine.model
 
 import java.util.*
-import kotlin.collections.HashMap
 
 /**
  * Created by Shiva on 5/31/2018.
@@ -11,19 +10,62 @@ class SimpleDayWeather : DayWeather
 {
     private lateinit var day: String
     private lateinit var city:String
-    private lateinit var date: Date
+    private lateinit var date: Calendar
     private lateinit var description: String
-    private lateinit var highTemp: Integer
-    private lateinit var lowTemp: Integer
-    private lateinit var humidity: Integer
+    private var highTemp: Double = 0.0
+    private var lowTemp: Double = 0.0
+    private var humidity: Int = 0
     private lateinit var pressure: String
     private lateinit var wind: String
+
+    fun setDay(day:String)
+    {
+      this.day = day
+    }
+
+    fun setCity(city:String)
+    {
+        this.city = city
+    }
+
+    fun setDate(date:Calendar)
+    {
+        this.date = date
+    }
+    fun setDescription(description:String)
+    {
+        this.description = description
+    }
+    fun setHighTemp(highTemp:Double)
+    {
+        this.highTemp = highTemp
+    }
+
+    fun setlowTemp(lowTemp:Double)
+    {
+        this.lowTemp = lowTemp
+    }
+
+    fun setHumidity(humidity: Int)
+    {
+        this.humidity = humidity
+    }
+
+    fun setPressure(pressure:String)
+    {
+        this.pressure = pressure
+    }
+
+    fun setWind(wind:String)
+    {
+        this.wind = wind
+    }
 
     override fun getCity(): String {
         return city
     }
 
-    override fun getDate(): Date {
+    override fun getDate(): Calendar {
         return date
     }
 
@@ -35,11 +77,11 @@ class SimpleDayWeather : DayWeather
         return description
     }
 
-    override fun getLowTemp(): Integer {
+    override fun getLowTemp(): Double {
         return lowTemp
     }
 
-    override fun getHighTemp(): Integer {
+    override fun getHighTemp(): Double {
         return highTemp
     }
 

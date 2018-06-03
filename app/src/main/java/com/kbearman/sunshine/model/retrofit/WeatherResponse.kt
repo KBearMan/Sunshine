@@ -17,7 +17,7 @@ class WeatherResponse internal constructor() {
     var cnt: Long? = null
     @SerializedName("list")
     @Expose
-    private var list:java.util.List<List<Any?>>? = null
+    var list:java.util.List<List<Any?>>? = null
     @SerializedName("city")
     @Expose
     var city: City? = null

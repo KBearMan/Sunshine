@@ -23,12 +23,12 @@ import retrofit2.http.GET
  */
 class WeatherRepo private constructor(private var retrofit: Any) : IForecast
 {
-    private var weatherObservable : PublishSubject<DayWeather> = PublishSubject.create()
+    private var weatherObservable : PublishSubject<kotlin.collections.List<DayWeather>> = PublishSubject.create()
     private val TAG = WeatherRepo::class.java.simpleName
 
     lateinit var weatherService :OpenWeatherService
 
-    override fun getForecastObservable(): Observable<DayWeather> {
+    override fun getForecastObservable(): Observable<kotlin.collections.List<DayWeather>> {
                 return weatherObservable
     }
 
@@ -40,8 +40,8 @@ class WeatherRepo private constructor(private var retrofit: Any) : IForecast
         queryMap.put("cnt",dayCount.toString())
         queryMap.put("units","imperial")
         queryMap.put("APPID","c823a132edfb2ceb3700abee63ab4223")
-
         //http://api.openweathermap.org/data/2.5/forecast?q=Atlanta&mode=json&cnt=5&units=imperial&APPID=c823a132edfb2ceb3700abee63ab4223
+
          weatherService.getCityForecast(queryMap)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

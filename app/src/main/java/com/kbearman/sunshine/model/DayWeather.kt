@@ -8,10 +8,10 @@ import java.util.*
 
 interface DayWeather {
     fun getCity(): String
-    fun getDate(): Date
+    fun getDate(): Calendar
     fun getDay(): String
     fun getDescription(): String
-    fun getLowTemp(): Integer
-    fun getHighTemp(): Integer
+    fun getLowTemp(): Double
+    fun getHighTemp(): Double
     fun getMetrics(): Map<String, String>
 }
