@@ -13,7 +13,7 @@ class List<T> {
     var main: Main? = null
     @SerializedName("weather")
     @Expose
-    var weather: List<Weather>? = null
+    var weather: java.util.List<Weather>? = null
     @SerializedName("clouds")
     @Expose
     var clouds: Clouds? = null
