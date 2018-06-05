@@ -11,7 +11,8 @@ interface DayWeather {
     fun getDate(): Calendar
     fun getDay(): String
     fun getDescription(): String
-    fun getLowTemp(): Double
-    fun getHighTemp(): Double
+    fun getLowTemp(): Double?
+    fun getHighTemp(): Double?
+    fun getIcon():Int
     fun getMetrics(): Map<String, String>
 }

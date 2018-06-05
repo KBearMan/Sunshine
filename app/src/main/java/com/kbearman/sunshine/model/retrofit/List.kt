@@ -16,13 +16,13 @@ class List<T> {
     var weather: java.util.List<Weather>? = null
     @SerializedName("clouds")
     @Expose
-    var clouds: Clouds? = null
+    var clouds: Int? = null
     @SerializedName("wind")
     @Expose
     var wind: Wind? = null
     @SerializedName("rain")
     @Expose
-    var rain: Rain? = null
+    var rain: Double? = null
     @SerializedName("sys")
     @Expose
     var sys: Sys? = null

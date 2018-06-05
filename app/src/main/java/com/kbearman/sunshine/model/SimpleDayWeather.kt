@@ -12,11 +12,12 @@ class SimpleDayWeather : DayWeather
     private lateinit var city:String
     private lateinit var date: Calendar
     private lateinit var description: String
-    private var highTemp: Double = 0.0
-    private var lowTemp: Double = 0.0
-    private var humidity: Int = 0
+    private var highTemp: Double? = 0.0
+    private var lowTemp: Double? = 0.0
+    private var humidity: Int? = 0
     private lateinit var pressure: String
     private lateinit var wind: String
+    private var icon: Int = 0
 
     fun setDay(day:String)
     {
@@ -36,17 +37,17 @@ class SimpleDayWeather : DayWeather
     {
         this.description = description
     }
-    fun setHighTemp(highTemp:Double)
+    fun setHighTemp(highTemp: Double?)
     {
         this.highTemp = highTemp
     }
 
-    fun setlowTemp(lowTemp:Double)
+    fun setlowTemp(lowTemp: Double?)
     {
         this.lowTemp = lowTemp
     }
 
-    fun setHumidity(humidity: Int)
+    fun setHumidity(humidity: Int?)
     {
         this.humidity = humidity
     }
@@ -61,6 +62,14 @@ class SimpleDayWeather : DayWeather
         this.wind = wind
     }
 
+    fun setIcon(id:Int)
+    {
+        this.icon = id
+    }
+
+    override fun getIcon(): Int {
+        return icon
+    }
     override fun getCity(): String {
         return city
     }
@@ -77,11 +86,11 @@ class SimpleDayWeather : DayWeather
         return description
     }
 
-    override fun getLowTemp(): Double {
+    override fun getLowTemp(): Double? {
         return lowTemp
     }
 
-    override fun getHighTemp(): Double {
+    override fun getHighTemp(): Double? {
         return highTemp
     }
 

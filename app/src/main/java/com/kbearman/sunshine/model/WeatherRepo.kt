@@ -39,8 +39,8 @@ class WeatherRepo private constructor(private var retrofit: Any) : IForecast
         queryMap.put("mode","json")
         queryMap.put("cnt",dayCount.toString())
         queryMap.put("units","imperial")
-        queryMap.put("APPID","c823a132edfb2ceb3700abee63ab4223")
-        //http://api.openweathermap.org/data/2.5/forecast?q=Atlanta&mode=json&cnt=5&units=imperial&APPID=c823a132edfb2ceb3700abee63ab4223
+        queryMap.put("APPID","3aa158b2f14a9f493a8c725f8133d704")
+        //http://api.openweathermap.org/data/2.5/forecast/daily?q=Atlanta&mode=json&cnt=5&units=imperial&APPID=3aa158b2f14a9f493a8c725f8133d704
 
          weatherService.getCityForecast(queryMap)
                 .subscribeOn(Schedulers.io())

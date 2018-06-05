@@ -1,6 +1,7 @@
 package com.kbearman.sunshine.Forecast
 
 import android.arch.lifecycle.ViewModel
+import android.text.format.DateUtils
 import android.util.Log
 import com.kbearman.sunshine.model.DayWeather
 import com.kbearman.sunshine.model.SimpleDayWeather
@@ -12,6 +13,13 @@ import io.reactivex.rxkotlin.subscribeBy
  */
 class ForecastViewModel : ViewModel()
 {
+
+    interface ForecastViewModelInteractor
+    {
+        fun newDataReceived()
+        fun startSingleDayActivity(day:DayWeather)
+    }
+    lateinit var mInteractor:ForecastViewModelInteractor
     val weatherRepository = WeatherRepo.getInstance()
     var selectedCity = "Atlanta"
     var forecastList:ArrayList<DayWeather> = ArrayList()
@@ -20,7 +28,20 @@ class ForecastViewModel : ViewModel()
     init {
         Log.d(TAG,"ForecastViewModel initialized")
         weatherRepository.getForecastObservable().subscribeBy(
-                onNext = { days -> forecastList.addAll(days)},
+                onNext = { days ->
+                    for(day in days)
+                    {
+                        if(DateUtils.isToday(day.getDate().timeInMillis))
+                        {
+                            todaysWeather = day
+                        }
+                        else
+                        {
+                            forecastList.add(day)
+                        }
+                        mInteractor.newDataReceived()
+                    }
+                },
                 onError =  { it.printStackTrace() },
                 onComplete = { println("Done!") }
         )
@@ -28,4 +49,8 @@ class ForecastViewModel : ViewModel()
         weatherRepository.getForecastByCity(selectedCity,Integer(5))
     }
 
+    fun dayClicked(day:DayWeather)
+    {
+        mInteractor.startSingleDayActivity(day)
+    }
 }

@@ -15,6 +15,6 @@ import retrofit2.http.QueryMap;
 
 public interface OpenWeatherService
 {
-    @GET("forecast")
+    @GET("forecast/daily")
     Observable<WeatherResponse> getCityForecast(@QueryMap Map<String, String> options);
 }
