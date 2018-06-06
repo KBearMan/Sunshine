@@ -2,14 +2,19 @@ package com.kbearman.sunshine.Forecast
 
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
+import android.opengl.Visibility
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v4.view.MenuItemCompat
+import android.os.Looper
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.ShareActionProvider
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
+import android.view.animation.AnimationUtils
+import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.kbearman.sunshine.R
 import com.kbearman.sunshine.SingleDayDetailedWeather.WeatherDetailActivity
@@ -20,16 +25,16 @@ import java.text.SimpleDateFormat
 
 class ForecastActivity : AppCompatActivity() {
 
+    private val TAG = ForecastActivity::class.java.simpleName
     private lateinit var forecastViewModel:ForecastViewModel
     private lateinit var dayListAdapter:ForecastRecyclerViewAdapter
-    private val TAG = ForecastActivity::class.java.simpleName
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forecast_frame)
         setSupportActionBar(toolbar)
         supportActionBar?.setLogo(R.mipmap.art_clear)
-
+        showLoading()
         forecastViewModel = ViewModelProviders.of(this).get(ForecastViewModel::class.java)
         dayListAdapter = ForecastRecyclerViewAdapter(forecastViewModel.forecastList,object:ForecastRecyclerViewAdapter.DayClickListener{
             override fun onClick(weather: DayWeather) {
@@ -41,6 +46,12 @@ class ForecastActivity : AppCompatActivity() {
         main_activity_day_list.adapter = dayListAdapter
         forecastViewModel.activityInteractor = object: ForecastViewModel.ForecastViewModelInteractor
         {
+            override fun showErrorMessage(message: String) {
+                runOnUiThread(Runnable {
+                    Toast.makeText(this@ForecastActivity, "ERROR:" + message, Toast.LENGTH_SHORT).show()
+                })
+            }
+
             override fun startAboutPage(info: String) {
                 val builder = AlertDialog.Builder(this@ForecastActivity, R.style.ThemeOverlay_AppCompat_Dialog)
                 builder.setMessage(info)
@@ -48,10 +59,14 @@ class ForecastActivity : AppCompatActivity() {
                 val dialog = builder.create()
                 dialog.show()            }
 
-
             override fun newDataReceived() {
                 try
                 {
+                    if(main_activity_loading_icon.visibility == VISIBLE)
+                    {
+                        hideLoading()
+                    }
+
                     if (main_activity_date.text == "" && forecastViewModel.todaysWeather != null) {
                         populateTodaysWeather()
                     }
@@ -66,7 +81,6 @@ class ForecastActivity : AppCompatActivity() {
             override fun startSingleDayActivity(day: DayWeather) {
                 startActivity(Intent(applicationContext,WeatherDetailActivity::class.java))
             }
-
         }
     }
 
@@ -85,6 +99,32 @@ class ForecastActivity : AppCompatActivity() {
             }
             else -> return super.onOptionsItemSelected(item)
         }
+    }
+
+    fun showLoading()
+    {
+        main_activity_loading_icon.visibility = View.VISIBLE
+        main_activity_loading_icon.startAnimation(AnimationUtils.loadAnimation(this,R.anim.loading))
+        main_activity_loading_text.visibility = View.VISIBLE
+        main_activity_day_list.visibility = View.INVISIBLE
+        main_activity_icon.visibility = View.INVISIBLE
+        main_activity_date.visibility = View.INVISIBLE
+        main_activity_high_temp.visibility = View.INVISIBLE
+        main_activity_low_temp.visibility = View.INVISIBLE
+        main_activity_weather_description.visibility = View.INVISIBLE
+    }
+
+    fun hideLoading()
+    {
+        main_activity_loading_icon.clearAnimation()
+        main_activity_loading_icon.visibility = View.INVISIBLE
+        main_activity_loading_text.visibility = View.INVISIBLE
+        main_activity_day_list.visibility = View.VISIBLE
+        main_activity_icon.visibility = View.VISIBLE
+        main_activity_date.visibility = View.VISIBLE
+        main_activity_high_temp.visibility = View.VISIBLE
+        main_activity_low_temp.visibility = View.VISIBLE
+        main_activity_weather_description.visibility = View.VISIBLE
     }
 
     fun populateTodaysWeather()
