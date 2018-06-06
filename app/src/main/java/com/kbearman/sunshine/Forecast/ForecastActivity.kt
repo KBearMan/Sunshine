@@ -4,9 +4,12 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v4.view.MenuItemCompat
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.Toolbar
-import android.view.View
+import android.support.v7.widget.ShareActionProvider
+import android.view.Menu
+import android.view.MenuItem
 import com.bumptech.glide.Glide
 import com.kbearman.sunshine.R
 import com.kbearman.sunshine.SingleDayDetailedWeather.WeatherDetailActivity
@@ -36,8 +39,16 @@ class ForecastActivity : AppCompatActivity() {
         })
         main_activity_day_list.layoutManager = LinearLayoutManager(applicationContext)
         main_activity_day_list.adapter = dayListAdapter
-        forecastViewModel.mInteractor = object: ForecastViewModel.ForecastViewModelInteractor
+        forecastViewModel.activityInteractor = object: ForecastViewModel.ForecastViewModelInteractor
         {
+            override fun startAboutPage(info: String) {
+                val builder = AlertDialog.Builder(this@ForecastActivity, R.style.ThemeOverlay_AppCompat_Dialog)
+                builder.setMessage(info)
+                        .setTitle("About")
+                val dialog = builder.create()
+                dialog.show()            }
+
+
             override fun newDataReceived() {
                 try
                 {
@@ -56,6 +67,23 @@ class ForecastActivity : AppCompatActivity() {
                 startActivity(Intent(applicationContext,WeatherDetailActivity::class.java))
             }
 
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.forecast_menu,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        // Handle item selection
+        when (item?.getItemId())
+        {
+            R.id.forecast_menu_about -> {
+                forecastViewModel.aboutButtonPressed()
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
         }
     }
 

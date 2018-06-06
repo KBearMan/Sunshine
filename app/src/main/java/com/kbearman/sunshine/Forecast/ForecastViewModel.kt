@@ -17,9 +17,10 @@ class ForecastViewModel : ViewModel()
     interface ForecastViewModelInteractor
     {
         fun newDataReceived()
+        fun startAboutPage(info:String)
         fun startSingleDayActivity(day:DayWeather)
     }
-    lateinit var mInteractor:ForecastViewModelInteractor
+    lateinit var activityInteractor:ForecastViewModelInteractor
     val weatherRepository = WeatherRepo.getInstance()
     var selectedCity = "Atlanta"
     var forecastList:ArrayList<DayWeather> = ArrayList()
@@ -39,7 +40,7 @@ class ForecastViewModel : ViewModel()
                         {
                             forecastList.add(day)
                         }
-                        mInteractor.newDataReceived()
+                        activityInteractor.newDataReceived()
                     }
                 },
                 onError =  { it.printStackTrace() },
@@ -52,6 +53,11 @@ class ForecastViewModel : ViewModel()
     fun dayClicked(day:DayWeather)
     {
         weatherRepository.selectedDay = day
-        mInteractor.startSingleDayActivity(day)
+        activityInteractor.startSingleDayActivity(day)
+    }
+
+    fun aboutButtonPressed()
+    {
+        activityInteractor.startAboutPage("This is the multi-day forecast screen.")
     }
 }
