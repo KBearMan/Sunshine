@@ -4,9 +4,9 @@ import android.arch.lifecycle.ViewModel
 import android.text.format.DateUtils
 import android.util.Log
 import com.kbearman.sunshine.model.DayWeather
-import com.kbearman.sunshine.model.SimpleDayWeather
 import com.kbearman.sunshine.model.WeatherRepo
 import io.reactivex.rxkotlin.subscribeBy
+import java.io.IOException
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
 
@@ -28,10 +28,12 @@ class ForecastViewModel : ViewModel()
     var selectedCity = "Atlanta"
     var forecastList:ArrayList<DayWeather> = ArrayList()
     private val TAG = ForecastViewModel::class.java.simpleName
-    var todaysWeather:DayWeather = SimpleDayWeather()
+    lateinit var todaysWeather:DayWeather
     init {
         Log.d(TAG,"ForecastViewModel initialized")
-        weatherRepository.getForecastObservable().timeout(8,TimeUnit.SECONDS).subscribeBy(
+        weatherRepository.getForecastObservable()
+                .timeout(8,TimeUnit.SECONDS) // TODO if time add a retryUntil or similar function
+                .subscribeBy(
                 onNext = { days ->
                     for(day in days)
                     {
@@ -48,11 +50,12 @@ class ForecastViewModel : ViewModel()
                     }
                 },
                 onError =  {
-                    if(it is TimeoutException)
+
+                    if(it is TimeoutException && todaysWeather == null && forecastList.size == 0)
                     {
                         activityInteractor.showErrorMessage("Could not connect to weather service, please check your internet connection.")
                     }
-                    else {
+                    else if(it is NullPointerException || it is IOException){
                         activityInteractor.showErrorMessage(it.message!!)
                     }
                 },

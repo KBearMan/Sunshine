@@ -28,8 +28,8 @@ class OpenWeatherAdapter
                 dayWeather.setHumidity(day.humidity?.toInt())
                 dayWeather.setPressure(day.pressure.toString() + " hPa")
                 dayWeather.setWind(day.speed.toString() + " km/h " + getCardinalFromDegrees(day.deg))
-                dayWeather.setIcon(getIconFromDescription(dayWeather.getDescription()))
-                dayWeather.setSmallIcon(getSmallIconFromDescription(dayWeather.getShortDescription()))
+                dayWeather.setIcon(getIconFromDescription(day.weather.get(0).icon!!))
+                dayWeather.setSmallIcon(getSmallIconFromDescription(day.weather.get(0).icon!!))
                 weatherList.add(dayWeather)
             }
 
@@ -59,17 +59,14 @@ class OpenWeatherAdapter
             var resourceToReturn = R.mipmap.ic_logo
             when
             {
-                description.toLowerCase().contains("light") &&
-                        description.toLowerCase().contains("clouds") -> resourceToReturn = R.mipmap.art_light_clouds
-                description.toLowerCase().contains("light")  &&
-                        description.toLowerCase().contains("rain") -> resourceToReturn = R.mipmap.art_light_rain
-
-                description.toLowerCase().contains("clear") -> resourceToReturn = R.mipmap.art_clear
-                description.toLowerCase().contains("clouds")  -> resourceToReturn = R.mipmap.art_clouds
-                description.toLowerCase().contains("fog") -> resourceToReturn = R.mipmap.art_fog
-                description.toLowerCase().contains("rain") -> resourceToReturn = R.mipmap.art_rain
-                description.toLowerCase().contains("snow")-> resourceToReturn = R.mipmap.art_snow
-                description.toLowerCase().contains("storm") -> resourceToReturn = R.mipmap.art_storm
+                description.contains("03") || description.contains("04")  -> resourceToReturn = R.mipmap.art_clouds
+                description.contains("02") -> resourceToReturn = R.mipmap.art_light_clouds
+                description.contains("09") -> resourceToReturn = R.mipmap.art_light_rain
+                description.contains("01") -> resourceToReturn = R.mipmap.art_clear
+                description.contains("50") -> resourceToReturn = R.mipmap.art_fog
+                description.contains("10") -> resourceToReturn = R.mipmap.art_rain
+                description.contains("13") -> resourceToReturn = R.mipmap.art_snow
+                description.contains("11") -> resourceToReturn = R.mipmap.art_storm
             }
             return resourceToReturn
         }
@@ -78,14 +75,14 @@ class OpenWeatherAdapter
             var resourceToReturn = R.mipmap.ic_logo
             when
             {
-                description.equals("Clear") -> resourceToReturn = R.mipmap.ic_clear
-                description.equals("Clouds") -> resourceToReturn = R.mipmap.ic_cloudy
-                description.equals("Fog")  -> resourceToReturn = R.mipmap.ic_fog
-                description.equals("Light Clouds") -> resourceToReturn = R.mipmap.ic_light_clouds
-                description.equals("Light Rain") -> resourceToReturn = R.mipmap.ic_light_rain
-                description.equals("Rain")-> resourceToReturn = R.mipmap.ic_rain
-                description.equals("Snow") -> resourceToReturn = R.mipmap.ic_snow
-                description.equals("Storm") -> resourceToReturn = R.mipmap.ic_storm
+                description.contains("03") || description.contains("04")  -> resourceToReturn = R.mipmap.ic_cloudy
+                description.contains("02") -> resourceToReturn = R.mipmap.ic_light_clouds
+                description.contains("09") -> resourceToReturn = R.mipmap.ic_light_rain
+                description.contains("01") -> resourceToReturn = R.mipmap.ic_clear
+                description.contains("50") -> resourceToReturn = R.mipmap.ic_fog
+                description.contains("10") -> resourceToReturn = R.mipmap.ic_rain
+                description.contains("13") -> resourceToReturn = R.mipmap.ic_snow
+                description.contains("11") -> resourceToReturn = R.mipmap.ic_storm
             }
             return resourceToReturn
         }

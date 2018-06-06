@@ -1,6 +1,7 @@
 package com.kbearman.sunshine.Forecast
 
 import android.arch.lifecycle.ViewModelProviders
+import android.content.DialogInterface
 import android.content.Intent
 import android.opengl.Visibility
 import android.support.v7.app.AppCompatActivity
@@ -56,6 +57,11 @@ class ForecastActivity : AppCompatActivity() {
                 val builder = AlertDialog.Builder(this@ForecastActivity, R.style.ThemeOverlay_AppCompat_Dialog)
                 builder.setMessage(info)
                         .setTitle("About")
+                        .setNeutralButton("Ok",object: DialogInterface.OnClickListener{
+                            override fun onClick(dialog: DialogInterface?, which: Int) {
+                                dialog?.dismiss()
+                            }
+                        })
                 val dialog = builder.create()
                 dialog.show()            }
 
