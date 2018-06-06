@@ -1,21 +1,14 @@
 package com.kbearman.sunshine.model
 
 import android.util.Log
-import com.kbearman.sunshine.model.retrofit.List
 import com.kbearman.sunshine.model.retrofit.OpenWeatherService
-import com.kbearman.sunshine.model.retrofit.WeatherResponse
 import io.reactivex.Observable
-import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.flatMapSequence
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.PublishSubject
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-
-
 
 
 /**
@@ -25,6 +18,7 @@ class WeatherRepo private constructor(private var retrofit: Any) : IForecast
 {
     private var weatherObservable : PublishSubject<kotlin.collections.List<DayWeather>> = PublishSubject.create()
     private val TAG = WeatherRepo::class.java.simpleName
+    lateinit var selectedDay:DayWeather
 
     lateinit var weatherService :OpenWeatherService
 

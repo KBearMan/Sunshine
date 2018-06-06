@@ -51,6 +51,7 @@ class ForecastViewModel : ViewModel()
 
     fun dayClicked(day:DayWeather)
     {
+        weatherRepository.selectedDay = day
         mInteractor.startSingleDayActivity(day)
     }
 }

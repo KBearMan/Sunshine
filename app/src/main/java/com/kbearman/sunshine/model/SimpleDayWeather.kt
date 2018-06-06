@@ -8,16 +8,19 @@ import java.util.*
 
 class SimpleDayWeather : DayWeather
 {
+
     private lateinit var day: String
     private lateinit var city:String
     private lateinit var date: Calendar
     private lateinit var description: String
+    private lateinit var shortDescription: String
     private var highTemp: Double? = 0.0
     private var lowTemp: Double? = 0.0
     private var humidity: Int? = 0
     private lateinit var pressure: String
     private lateinit var wind: String
     private var icon: Int = 0
+    private var smallIcon: Int = 0
 
     fun setDay(day:String)
     {
@@ -67,6 +70,22 @@ class SimpleDayWeather : DayWeather
         this.icon = id
     }
 
+    fun setShortDescription(desc:String) {
+        shortDescription = desc
+    }
+
+    fun setSmallIcon(smallIcon:Int) {
+        this.smallIcon = smallIcon
+    }
+
+    override fun getShortDescription(): String {
+        return shortDescription
+    }
+
+    override fun getSmallIcon(): Int {
+        return smallIcon
+    }
+
     override fun getIcon(): Int {
         return icon
     }
@@ -94,12 +113,12 @@ class SimpleDayWeather : DayWeather
         return highTemp
     }
 
-    override fun getMetrics(): Map<String, String> {
-        return mapOf(
-                "Humidity" to humidity.toString()+"%",
-                "Pressure" to pressure,
-                "Wind" to wind)
-
+    override fun getMetrics(): List<String> {
+        var metricList:ArrayList<String> = ArrayList()
+        metricList.add("Humidity: " + humidity.toString()+"%")
+        metricList.add("Pressure: " + pressure)
+        metricList.add("Wind: " + wind)
+        return metricList
     }
 
 }

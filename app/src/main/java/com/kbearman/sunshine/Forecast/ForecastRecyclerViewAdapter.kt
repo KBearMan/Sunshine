@@ -6,7 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.kbearman.sunshine.R
+import com.kbearman.sunshine.R.id.main_activity_icon
 import com.kbearman.sunshine.model.DayWeather
 import kotlinx.android.synthetic.main.recycler_view_day_entry.view.*
 
@@ -20,9 +22,10 @@ class ForecastRecyclerViewAdapter(private val myDataSet: ArrayList<DayWeather>, 
     {
         holder.dayWeather = myDataSet.get(position)
         holder.dayTextView.setText(holder.dayWeather!!.getDay())
-        holder.descriptionTextView.setText(holder.dayWeather!!.getDescription())
-        holder.highTextView.setText(holder.dayWeather!!.getHighTemp().toString()+"°")
-        holder.lowTextView.setText(holder.dayWeather!!.getLowTemp().toString()+"°")
+        holder.descriptionTextView.setText(holder.dayWeather!!.getShortDescription())
+        holder.highTextView.setText(String.format("%.1f",holder.dayWeather!!.getHighTemp())+"°")
+        holder.lowTextView.setText(String.format("%.1f",holder.dayWeather!!.getLowTemp())+"°")
+        Glide.with(holder.iconImageView.context).load(holder.dayWeather!!.getSmallIcon()).into(holder.iconImageView)
     }
 
     override fun getItemCount(): Int

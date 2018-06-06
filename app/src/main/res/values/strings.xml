@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Sunshine</string>
     <string name="title_activity_details">Details</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_main55">MainActivity55</string>
+    <string name="title_activity_forecast">Sunshine</string>
+    <string name="title_activity_single_day_detail_weather">Details</string>
 </resources>
